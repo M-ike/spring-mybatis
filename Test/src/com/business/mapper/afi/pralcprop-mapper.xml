@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.business.afi.dao.PralcpropBeanMapper">
+
+  <resultMap id="BaseResultMap" type="com.business.afi.bean.PralcpropBean">
+      <result column="ALCPRDCOD" property="alcprdcod" />
+      <result column="ALCPRDSTS" property="alcprdsts" />
+      <result column="ALCORGCOD" property="alcorgcod" />
+      <result column="ALCNTFSTS" property="alcntfsts" />
+      <result column="ALCNTFTIM" property="alcntftim" />
+      <result column="ALCCRTUSR" property="alccrtusr" />
+      <result column="ALCCRTTIM" property="alccrttim" />
+      <result column="ALCUPDUSR" property="alcupdusr" />
+      <result column="ALCUPDTIM" property="alcupdtim" />
+  </resultMap>
+
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+
+  <sql id="Base_Column_List">
+    ALCPRDCOD, ALCPRDSTS, ALCORGCOD, ALCNTFSTS, ALCNTFTIM, ALCCRTUSR, ALCCRTTIM, ALCUPDUSR, ALCUPDTIM
+  </sql>
+
+  <select id="selectByExample" parameterType="com.business.afi.bean.PralcpropBeanExample" resultMap="BaseResultMap">
+    <include refid="MysqlDialectPrefix" />
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from PRALCPROP
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <include refid="MysqlDialectSuffix" />
+  </select>
+
+  <select id="selectByExampleForupdate" parameterType="com.business.afi.bean.PralcpropBeanExample" resultMap="BaseResultMap">
+    <include refid="MysqlDialectPrefix" />
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from PRALCPROP
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <include refid="MysqlDialectSuffix" />
+    for update
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="com.business.afi.bean.PralcpropKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from PRALCPROP
+    where alcprdcod = #{alcprdcod, jdbcType=VARCHAR} 
+  </select>
+
+  <select id="selectByPrimaryKeyForupdate" parameterType="com.business.afi.bean.PralcpropKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from PRALCPROP
+    where alcprdcod = #{alcprdcod, jdbcType=VARCHAR} 
+    for update  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="com.business.afi.bean.PralcpropKey">
+    delete from PRALCPROP
+    where alcprdcod = #{alcprdcod, jdbcType=VARCHAR} 
+  </delete>
+
+  <delete id="deleteByExample" parameterType="com.business.afi.bean.PralcpropBeanExample">
+    delete from PRALCPROP
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+
+  <insert id="insert" parameterType="com.business.afi.bean.PralcpropBean">
+    insert into PRALCPROP (ALCPRDCOD, ALCPRDSTS, ALCORGCOD, ALCNTFSTS, ALCNTFTIM, ALCCRTUSR, ALCCRTTIM, ALCUPDUSR, ALCUPDTIM)
+    values (#{alcprdcod, jdbcType=VARCHAR}, #{alcprdsts, jdbcType=CHAR}, #{alcorgcod, jdbcType=VARCHAR}, #{alcntfsts, jdbcType=VARCHAR}, #{alcntftim, jdbcType=TIMESTAMP}, #{alccrtusr, jdbcType=VARCHAR}, #{alccrttim, jdbcType=TIMESTAMP}, #{alcupdusr, jdbcType=VARCHAR}, #{alcupdtim, jdbcType=TIMESTAMP})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.business.afi.bean.PralcpropBean">
+    insert into PRALCPROP
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="alcprdcod != null">ALCPRDCOD,</if>
+      <if test="alcprdsts != null">ALCPRDSTS,</if>
+      <if test="alcorgcod != null">ALCORGCOD,</if>
+      <if test="alcntfsts != null">ALCNTFSTS,</if>
+      <if test="alcntftim != null">ALCNTFTIM,</if>
+      <if test="alccrtusr != null">ALCCRTUSR,</if>
+      <if test="alccrttim != null">ALCCRTTIM,</if>
+      <if test="alcupdusr != null">ALCUPDUSR,</if>
+      <if test="alcupdtim != null">ALCUPDTIM,</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="alcprdcod != null">#{alcprdcod, jdbcType=VARCHAR},</if>
+      <if test="alcprdsts != null">#{alcprdsts, jdbcType=CHAR},</if>
+      <if test="alcorgcod != null">#{alcorgcod, jdbcType=VARCHAR},</if>
+      <if test="alcntfsts != null">#{alcntfsts, jdbcType=VARCHAR},</if>
+      <if test="alcntftim != null">#{alcntftim, jdbcType=TIMESTAMP},</if>
+      <if test="alccrtusr != null">#{alccrtusr, jdbcType=VARCHAR},</if>
+      <if test="alccrttim != null">#{alccrttim, jdbcType=TIMESTAMP},</if>
+      <if test="alcupdusr != null">#{alcupdusr, jdbcType=VARCHAR},</if>
+      <if test="alcupdtim != null">#{alcupdtim, jdbcType=TIMESTAMP},</if>
+    </trim>
+  </insert>
+
+  <select id="countByExample" parameterType="com.business.afi.bean.PralcpropBeanExample" resultType="java.lang.Integer">
+    select count(*) from PRALCPROP
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+
+  <update id="updateByExampleSelective" parameterType="map">
+    update PRALCPROP
+    <set>
+      <if test="record.alcprdcod != null">ALCPRDCOD = #{record.alcprdcod, jdbcType=VARCHAR}, </if>
+      <if test="record.alcprdsts != null">ALCPRDSTS = #{record.alcprdsts, jdbcType=CHAR}, </if>
+      <if test="record.alcorgcod != null">ALCORGCOD = #{record.alcorgcod, jdbcType=VARCHAR}, </if>
+      <if test="record.alcntfsts != null">ALCNTFSTS = #{record.alcntfsts, jdbcType=VARCHAR}, </if>
+      <if test="record.alcntftim != null">ALCNTFTIM = #{record.alcntftim, jdbcType=TIMESTAMP}, </if>
+      <if test="record.alccrtusr != null">ALCCRTUSR = #{record.alccrtusr, jdbcType=VARCHAR}, </if>
+      <if test="record.alccrttim != null">ALCCRTTIM = #{record.alccrttim, jdbcType=TIMESTAMP}, </if>
+      <if test="record.alcupdusr != null">ALCUPDUSR = #{record.alcupdusr, jdbcType=VARCHAR}, </if>
+      <if test="record.alcupdtim != null">ALCUPDTIM = #{record.alcupdtim, jdbcType=TIMESTAMP}, </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+
+  <update id="updateByExample" parameterType="map">
+    update PRALCPROP
+    set 
+      ALCPRDCOD = #{record.alcprdcod, jdbcType=VARCHAR},
+      ALCPRDSTS = #{record.alcprdsts, jdbcType=CHAR},
+      ALCORGCOD = #{record.alcorgcod, jdbcType=VARCHAR},
+      ALCNTFSTS = #{record.alcntfsts, jdbcType=VARCHAR},
+      ALCNTFTIM = #{record.alcntftim, jdbcType=TIMESTAMP},
+      ALCCRTUSR = #{record.alccrtusr, jdbcType=VARCHAR},
+      ALCCRTTIM = #{record.alccrttim, jdbcType=TIMESTAMP},
+      ALCUPDUSR = #{record.alcupdusr, jdbcType=VARCHAR},
+      ALCUPDTIM = #{record.alcupdtim, jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+
+  <update id="updateByPrimaryKeySelective" parameterType="map">
+    update PRALCPROP
+    <set>
+      <if test="record.alcprdcod != null">ALCPRDCOD = #{record.alcprdcod, jdbcType=VARCHAR}, </if>
+      <if test="record.alcprdsts != null">ALCPRDSTS = #{record.alcprdsts, jdbcType=CHAR}, </if>
+      <if test="record.alcorgcod != null">ALCORGCOD = #{record.alcorgcod, jdbcType=VARCHAR}, </if>
+      <if test="record.alcntfsts != null">ALCNTFSTS = #{record.alcntfsts, jdbcType=VARCHAR}, </if>
+      <if test="record.alcntftim != null">ALCNTFTIM = #{record.alcntftim, jdbcType=TIMESTAMP}, </if>
+      <if test="record.alccrtusr != null">ALCCRTUSR = #{record.alccrtusr, jdbcType=VARCHAR}, </if>
+      <if test="record.alccrttim != null">ALCCRTTIM = #{record.alccrttim, jdbcType=TIMESTAMP}, </if>
+      <if test="record.alcupdusr != null">ALCUPDUSR = #{record.alcupdusr, jdbcType=VARCHAR}, </if>
+      <if test="record.alcupdtim != null">ALCUPDTIM = #{record.alcupdtim, jdbcType=TIMESTAMP}, </if>
+    </set>
+    where alcprdcod = #{record.alcprdcod, jdbcType=VARCHAR} 
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="map">
+    update PRALCPROP
+    set 
+      ALCPRDCOD = #{record.alcprdcod, jdbcType=VARCHAR},
+      ALCPRDSTS = #{record.alcprdsts, jdbcType=CHAR},
+      ALCORGCOD = #{record.alcorgcod, jdbcType=VARCHAR},
+      ALCNTFSTS = #{record.alcntfsts, jdbcType=VARCHAR},
+      ALCNTFTIM = #{record.alcntftim, jdbcType=TIMESTAMP},
+      ALCCRTUSR = #{record.alccrtusr, jdbcType=VARCHAR},
+      ALCCRTTIM = #{record.alccrttim, jdbcType=TIMESTAMP},
+      ALCUPDUSR = #{record.alcupdusr, jdbcType=VARCHAR},
+      ALCUPDTIM = #{record.alcupdtim, jdbcType=TIMESTAMP}
+    where alcprdcod = #{record.alcprdcod, jdbcType=VARCHAR} 
+  </update>
+
+  <sql id="MysqlDialectPrefix" >
+    <if test="page != null" >
+    </if>
+  </sql>
+  <sql id="MysqlDialectSuffix" >
+    <if test="page != null" >
+      <![CDATA[ limit #{page.begin} , #{page.length} ]]>
+    </if>
+  </sql>
+
+
+</mapper>
